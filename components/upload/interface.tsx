@@ -111,9 +111,18 @@ export interface UploadProps<T = any> {
   iconRender?: (file: UploadFile<T>, listType?: UploadListType) => React.ReactNode;
   isImageUrl?: (file: UploadFile) => boolean;
   progress?: UploadListProgressProps;
+  uploadListWrapperRender?: (
+    uploadListNode: React.ReactElement,
+    fileList?: Array<UploadFile<T>>,
+  ) => React.ReactNode;
   itemRender?: (
     originNode: React.ReactElement,
     file: UploadFile,
+    // onProgress: (event: { percent: number }, file: RcFile) => void,
+    // onError: (error: Error, response?: any, file?: RcFile) => void,
+    // onSuccess: (response: object, file: RcFile) => void,
+    // onAbort?: (file: UploadFile<T>) => void | boolean,
+    onRemove?: (file: UploadFile<T>) => void | boolean | Promise<void | boolean>,
     fileList?: Array<UploadFile<T>>,
   ) => React.ReactNode;
 }
@@ -128,6 +137,8 @@ export interface UploadListProps<T = any> {
   onPreview?: (file: UploadFile<T>) => void;
   onDownload?: (file: UploadFile<T>) => void;
   onRemove?: (file: UploadFile<T>) => void | boolean;
+  // onAbort?: (file: UploadFile<T>) => void | boolean,
+  uploader: object,
   items?: Array<UploadFile<T>>;
   progress?: UploadListProgressProps;
   prefixCls?: string;
@@ -141,9 +152,19 @@ export interface UploadListProps<T = any> {
   iconRender?: (file: UploadFile<T>, listType?: UploadListType) => React.ReactNode;
   isImageUrl?: (file: UploadFile) => boolean;
   appendAction?: React.ReactNode;
+  customRequest?: (options: RcCustomRequestOptions) => void,
+  uploadListWrapperRender?: (
+    uploadListNode: React.ReactElement,
+    fileList?: Array<UploadFile<T>>,
+  ) => React.ReactNode;
   itemRender?: (
     originNode: React.ReactElement,
     file: UploadFile,
+    // onProgress: (event: { percent: number }, file: RcFile) => void,
+    // onError: (error: Error, response?: any, file?: RcFile) => void,
+    // onSuccess: (response: object, file: RcFile) => void,
+    // onAbort?: (file: UploadFile<T>) => void | boolean,
+    onRemove?: (file: UploadFile<T>) => void | boolean | Promise<void | boolean>,
     fileList?: Array<UploadFile<T>>,
   ) => React.ReactNode;
 }

@@ -18,6 +18,16 @@ import { ConfigContext } from '../config-provider';
 import Button, { ButtonProps } from '../button';
 import useForceUpdate from '../_util/hooks/useForceUpdate';
 
+// class InternalUploadList extends React.Component<InternalUploadListProps> {
+//
+//   render = () => {
+//     return (
+//       )
+//   }
+// }
+//
+// export default InternalUploadList;
+
 const InternalUploadList: React.ForwardRefRenderFunction<unknown, UploadListProps> = (
   {
     listType,
@@ -38,6 +48,8 @@ const InternalUploadList: React.ForwardRefRenderFunction<unknown, UploadListProp
     progress: progressProps,
     appendAction,
     itemRender,
+    uploader,
+    customRequest,
   },
   ref,
 ) => {
@@ -149,6 +161,8 @@ const InternalUploadList: React.ForwardRefRenderFunction<unknown, UploadListProp
 
   const prefixCls = getPrefixCls('upload', customizePrefixCls);
   const list = items.map(file => {
+    //state
+    //catch onCancel
     let progress;
     const iconNode = handleIconRender(file);
     let icon = <div className={`${prefixCls}-text-icon`}>{iconNode}</div>;
@@ -330,9 +344,13 @@ const InternalUploadList: React.ForwardRefRenderFunction<unknown, UploadListProp
       ) : (
         <span>{dom}</span>
       );
+
+    console.log(uploader)
+    console.log(customRequest)
+
     return (
       <div key={file.uid} className={listContainerNameClass}>
-        {itemRender ? itemRender(item, file, items) : item}
+        {itemRender ? itemRender(item, file, onRemove, items) : item}
       </div>
     );
   });
